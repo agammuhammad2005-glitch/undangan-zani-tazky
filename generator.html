@@ -172,13 +172,17 @@
 
       <!-- TOMBOL UTAMA KIRIM KE WHATSAPP -->
       <div class="pt-2 flex flex-col sm:flex-row gap-3">
-        <button 
-          onclick="sendToWhatsApp()" 
-          class="flex-1 py-3.5 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-emerald-600/30 transition transform active:scale-95"
+        <a 
+          id="btnDirectWa"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="prepareWhatsAppLink(this)"
+          class="flex-1 py-3.5 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-emerald-600/30 transition transform active:scale-95 text-center cursor-pointer"
         >
           <i class="fa-brands fa-whatsapp text-lg"></i>
           <span>Kirim Langsung via WhatsApp</span>
-        </button>
+        </a>
 
         <button 
           onclick="copyDraftMessage()" 
@@ -351,6 +355,27 @@ Zani & Tazky`;
         .replace(/\[LINK_UNDANGAN\]/g, link);
     }
 
+    function prepareWhatsAppLink(el) {
+      const message = formatWhatsAppMessage();
+      let phone = document.getElementById('guestPhoneSingle').value.trim();
+
+      if (phone) {
+        phone = phone.replace(/[^0-9]/g, '');
+        if (phone.startsWith('0')) {
+          phone = '62' + phone.slice(1);
+        } else if (phone.startsWith('8')) {
+          phone = '62' + phone;
+        }
+      }
+
+      const encodedMsg = encodeURIComponent(message);
+      let waUrl = phone 
+        ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMsg}`
+        : `https://api.whatsapp.com/send?text=${encodedMsg}`;
+
+      el.href = waUrl;
+    }
+
     function sendToWhatsApp() {
       const message = formatWhatsAppMessage();
       let phone = document.getElementById('guestPhoneSingle').value.trim();
@@ -366,13 +391,10 @@ Zani & Tazky`;
       }
 
       const encodedMsg = encodeURIComponent(message);
-      
-      // Menggunakan protokol https://wa.me yang kompatibel dengan WhatsApp Web di PC dan Aplikasi WA di Android / iPhone
       let waUrl = phone 
-        ? `https://wa.me/${phone}?text=${encodedMsg}`
+        ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMsg}`
         : `https://api.whatsapp.com/send?text=${encodedMsg}`;
 
-      // Buka tab WhatsApp
       window.open(waUrl, '_blank');
     }
 
