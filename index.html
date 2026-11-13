@@ -829,6 +829,9 @@
     }
 
     // 2. Navigasi Halaman dengan Transisi Lembut (Page Switching)
+    const pageOrder = ['opening', 'salam', 'quotes', 'mempelai', 'acara'];
+    let currentPageIndex = 0;
+
     const navButtons = {
       'opening': document.getElementById('btn-opening'),
       'salam': document.getElementById('btn-salam'),
@@ -926,9 +929,6 @@
     let touchStartY = 0;
     let touchEndX = 0;
     let touchEndY = 0;
-
-    const pageOrder = ['opening', 'salam', 'quotes', 'mempelai', 'acara'];
-    let currentPageIndex = 0;
 
     const containerEl = document.getElementById('pageViewport');
     if (containerEl) {
