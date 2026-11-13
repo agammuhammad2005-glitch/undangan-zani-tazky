@@ -105,7 +105,6 @@
       width: 100%;
       height: 100vh;
       height: 100dvh;
-      overflow: hidden;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -115,6 +114,9 @@
     @media (max-width: 640px) {
       body {
         background-color: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
       }
       .mobile-frame {
         max-width: 100% !important;
@@ -129,22 +131,39 @@
     /* Page Viewport Area */
     .page-container {
       flex: 1;
+      height: calc(100% - 68px);
       overflow-y: auto;
       overflow-x: hidden;
       position: relative;
       -webkit-overflow-scrolling: touch;
-      display: flex;
-      flex-direction: column;
     }
 
     /* Transisi Halus Pergantian Halaman */
     .page-section {
       display: none;
-      min-height: 100%;
-      width: 100%;
-      padding-bottom: 90px;
-      perspective: 1200px;
       box-sizing: border-box;
+      perspective: 1200px;
+    }
+
+    /* Khusus Halaman Opening: Harus Pas 1 Layar Tanpa Scroll */
+    #page-opening.page-section.active {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      min-height: 100%;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      padding-left: 16px;
+      padding-right: 16px;
+      overflow: hidden;
+      animation: pageTurn 0.85s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+    }
+
+    /* Halaman Isi Lainnya: Bisa di-scroll sampai bawah */
+    .page-section:not(#page-opening) {
+      min-height: 100%;
+      padding-bottom: 30px;
     }
     @keyframes fall {
       0% {
@@ -334,29 +353,29 @@
         </div>
 
         <!-- KOTAK PENERIMA UNDANGAN (NAMA TAMU PERSIS DI TENGAH SIMETRIS) -->
-        <div class="relative z-10 w-full max-w-xs mx-auto my-auto py-1 flex flex-col items-center justify-center text-center shrink-0">
+        <div class="relative z-10 w-full max-w-xs mx-auto py-1 flex flex-col items-center justify-center text-center shrink-0">
           <p class="text-[11px] sm:text-xs text-betawi-brownText font-medium text-center w-full">Kepada Yth;</p>
           <p class="text-[11px] sm:text-xs text-stone-600 mb-1 text-center w-full">Bapak/Ibu/Saudara/i</p>
           
-          <div class="p-2.5 sm:p-3.5 px-4 rounded-2xl bg-white/85 border-2 border-betawi-goldNav/60 shadow-md backdrop-blur-md w-full flex items-center justify-center text-center">
-            <h2 id="guestNameDisplay" class="font-serif text-base sm:text-xl font-bold text-betawi-brownText tracking-wide text-center w-full m-0">
+          <div class="p-2 sm:p-3 px-4 rounded-2xl bg-white/85 border-2 border-betawi-goldNav/60 shadow-md backdrop-blur-md w-full flex items-center justify-center text-center">
+            <h2 id="guestNameDisplay" class="font-serif text-base sm:text-lg font-bold text-betawi-brownText tracking-wide text-center w-full m-0">
               Tamu Undangan
             </h2>
           </div>
           
           <!-- Tombol Mulai Buka Halaman (Presisi Tengah) -->
-          <div class="w-full flex justify-center mt-3">
-            <button type="button" onclick="goToPage('salam')" class="px-7 py-2.5 sm:px-8 sm:py-3 rounded-full bg-gradient-to-r from-betawi-goldNav to-amber-700 hover:from-amber-700 hover:to-betawi-goldNav text-white font-bold text-xs tracking-wider uppercase shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer relative z-30 border border-betawi-goldLight/40">
+          <div class="w-full flex justify-center mt-2.5">
+            <button type="button" onclick="goToPage('salam')" class="px-7 py-2 sm:px-8 sm:py-2.5 rounded-full bg-gradient-to-r from-betawi-goldNav to-amber-700 hover:from-amber-700 hover:to-betawi-goldNav text-white font-bold text-xs tracking-wider uppercase shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer relative z-30 border border-betawi-goldLight/40">
               <i class="fa-solid fa-envelope-open text-xs"></i>
               <span>Buka Undangan</span>
             </button>
           </div>
         </div>
 
-        <!-- SEPASANG ONDEL-ONDEL DI POJOK BAWAH (PERSIS SEPERTI FOTO) -->
-        <div class="w-full flex justify-between items-end relative z-10 px-1 pointer-events-none shrink-0 pt-1">
+        <!-- SEPASANG ONDEL-ONDEL DI POJOK BAWAH (MENEMPEL DI BAWAH PAS DI ATAS NAVBAR) -->
+        <div class="w-full flex justify-between items-end relative z-10 px-2 pointer-events-none shrink-0 mt-auto">
           <!-- Ondel-Ondel Pria (Kiri Bawah, Muka Merah, Baju Hijau) -->
-          <div class="w-16 sm:w-20 animate-ondel-left drop-shadow-lg">
+          <div class="w-14 sm:w-18 animate-ondel-left drop-shadow-lg">
             <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- Kembang Kelapa Hiasan Kepala -->
               <path d="M50 20 Q15 5 5 0 Q20 15 50 25" stroke="#F59E0B" stroke-width="2.5"/>
