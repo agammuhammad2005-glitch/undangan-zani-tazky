@@ -2,7 +2,10 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#8CA88E" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>The Wedding of Zani & Tazky</title>
   
   <meta name="description" content="Undangan Pernikahan Rianzani Octavia & Tazky Bagus Ananda - Sabtu, 9 Januari 2027" />
@@ -86,6 +89,12 @@
       animation: spin-slow 10s linear infinite;
     }
 
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: #8CA88E !important;
+    }
+
     /* Mobile Container Frame: Adaptif untuk Laptop & 100% Pas di Layar HP */
     .mobile-frame {
       max-width: 440px;
@@ -99,11 +108,14 @@
     }
 
     @media (max-width: 640px) {
-      body {
-        background-color: transparent !important;
+      html, body {
+        background-color: #8CA88E !important;
         padding: 0 !important;
         margin: 0 !important;
         overflow: hidden !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
       }
       .mobile-frame {
         max-width: 100% !important;
@@ -112,6 +124,8 @@
         height: 100dvh !important;
         box-shadow: none !important;
         border-radius: 0 !important;
+        border: none !important;
+        outline: none !important;
       }
       .gigi-balang-top {
         display: none !important;
@@ -810,10 +824,20 @@
     };
 
     function openInvitation() {
-      // Keluar dari fullscreen jika sempat aktif agar banner toast browser langsung hilang
-      if (document.fullscreenElement) {
-        if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      // Panggil Fullscreen native seperti berandawedding
+      try {
+        const docEl = document.documentElement;
+        if (docEl.requestFullscreen) {
+          docEl.requestFullscreen().catch(() => {});
+        } else if (docEl.webkitRequestFullscreen) {
+          docEl.webkitRequestFullscreen();
+        } else if (docEl.msRequestFullscreen) {
+          docEl.msRequestFullscreen();
+        }
+      } catch (e) {
+        console.log(e);
       }
+
       goToPage('salam');
     }
 
