@@ -355,19 +355,24 @@ Zani & Tazky`;
       const message = formatWhatsAppMessage();
       let phone = document.getElementById('guestPhoneSingle').value.trim();
 
-      // Normalisasi format nomor telpon (misal 0812 -> 62812)
+      // Normalisasi format nomor telepon Indonesia (misal 0812 -> 62812, +62 -> 62)
       if (phone) {
         phone = phone.replace(/[^0-9]/g, '');
         if (phone.startsWith('0')) {
           phone = '62' + phone.slice(1);
+        } else if (phone.startsWith('8')) {
+          phone = '62' + phone;
         }
       }
 
       const encodedMsg = encodeURIComponent(message);
+      
+      // Menggunakan protokol https://wa.me yang kompatibel dengan WhatsApp Web di PC dan Aplikasi WA di Android / iPhone
       let waUrl = phone 
-        ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMsg}`
+        ? `https://wa.me/${phone}?text=${encodedMsg}`
         : `https://api.whatsapp.com/send?text=${encodedMsg}`;
 
+      // Buka tab WhatsApp
       window.open(waUrl, '_blank');
     }
 
