@@ -809,23 +809,11 @@
       'acara': document.getElementById('btn-acara'),
     };
 
-    function requestFullScreenMode() {
-      try {
-        const elem = document.documentElement;
-        if (elem.requestFullscreen) {
-          elem.requestFullscreen().catch(() => {});
-        } else if (elem.webkitRequestFullscreen) { /* Safari / Chrome Mobile */
-          elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE11 */
-          elem.msRequestFullscreen();
-        }
-      } catch (err) {
-        console.log("Fullscreen request error:", err);
-      }
-    }
-
     function openInvitation() {
-      requestFullScreenMode();
+      // Keluar dari fullscreen jika sempat aktif agar banner toast browser langsung hilang
+      if (document.fullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      }
       goToPage('salam');
     }
 
