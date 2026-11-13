@@ -135,11 +135,25 @@
     /* Page Viewport Area */
     .page-container {
       flex: 1;
-      height: calc(100% - 68px);
+      height: 100%;
       overflow-y: auto;
       overflow-x: hidden;
       position: relative;
       -webkit-overflow-scrolling: touch;
+    }
+
+    /* Bottom Navbar: Disembunyikan saat di Cover Depan (not-open), Muncul setelah Buka Undangan */
+    #bottomNavBar {
+      display: none;
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+    }
+
+    body.invitation-opened #bottomNavBar {
+      display: flex !important;
+    }
+
+    body.invitation-opened .page-container {
+      height: calc(100% - 68px);
     }
 
     /* Transisi Halus Pergantian Halaman */
@@ -765,7 +779,7 @@
     </div>
 
     <!-- ==================== BOTTOM TAB NAVBAR (PERSIS SEPERTI FOTO) ==================== -->
-    <nav class="shrink-0 bg-betawi-greenNav px-2 py-2 flex items-center justify-around z-40 border-t border-betawi-goldNav/40 shadow-2xl">
+    <nav id="bottomNavBar" class="shrink-0 bg-betawi-greenNav px-2 py-2 items-center justify-around z-40 border-t border-betawi-goldNav/40 shadow-2xl">
       
       <!-- TAB 1: Opening -->
       <button onclick="goToPage('opening')" id="btn-opening" class="nav-tab active flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl transition-all">
@@ -800,7 +814,7 @@
     </nav>
 
     <!-- Ornamen Gigi Balang Bawah -->
-    <div class="gigi-balang-top shrink-0 z-30"></div>
+    <div id="bottomGigiBalang" class="gigi-balang-top shrink-0 z-30" style="display: none;"></div>
 
   </div>
 
@@ -824,6 +838,11 @@
     };
 
     function openInvitation() {
+      // Aktifkan status invitation-opened agar navbar muncul
+      document.body.classList.add('invitation-opened');
+      const bottomGb = document.getElementById('bottomGigiBalang');
+      if (bottomGb) bottomGb.style.display = 'block';
+
       // Panggil Fullscreen native seperti berandawedding
       try {
         const docEl = document.documentElement;
@@ -842,6 +861,15 @@
     }
 
     function goToPage(pageId) {
+      if (pageId === 'opening') {
+        document.body.classList.remove('invitation-opened');
+        const bottomGb = document.getElementById('bottomGigiBalang');
+        if (bottomGb) bottomGb.style.display = 'none';
+      } else {
+        document.body.classList.add('invitation-opened');
+        const bottomGb = document.getElementById('bottomGigiBalang');
+        if (bottomGb) bottomGb.style.display = 'block';
+      }
 
       // Sembunyikan semua halaman
       const sections = document.querySelectorAll('.page-section');
