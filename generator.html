@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generator Link Undangan • Zani & Tazky</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            betawi: {
+              gold: '#C59A3F',
+              goldLight: '#E5C07B',
+              goldDark: '#8F681A',
+              red: '#991B1B',
+              redDark: '#660F0F',
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-stone-100 text-stone-800 font-sans min-h-screen py-8 px-4 flex flex-col justify-between">
+
+  <div class="max-w-2xl mx-auto w-full">
+    
+    <!-- HEADER -->
+    <div class="bg-gradient-to-r from-stone-900 via-betawi-redDark to-stone-900 text-white rounded-3xl p-6 md:p-8 shadow-xl text-center relative overflow-hidden mb-6 border border-betawi-gold/30">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-betawi-gold/20 text-betawi-goldLight text-xs font-semibold mb-3">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>Tools Khusus Mempelai</span>
+      </div>
+      <h1 class="font-serif text-3xl md:text-4xl font-bold text-betawi-goldLight tracking-wide">
+        Generator Undangan WhatsApp
+      </h1>
+      <p class="text-xs md:text-sm text-stone-300 mt-2">
+        Pernikahan Rianzani Octavia & Tazky Bagus Ananda
+      </p>
+      <p class="text-[11px] text-stone-400 mt-1">
+        Buat link dengan nama tamu & kirim langsung ke WhatsApp dengan satu klik!
+      </p>
+    </div>
+
+    <!-- PENGATURAN DOMAIN / LINK WEBSITE -->
+    <div class="bg-white rounded-2xl p-5 shadow-sm border border-stone-200 mb-6">
+      <div class="flex items-center justify-between mb-2">
+        <label class="text-xs font-bold text-stone-700 flex items-center gap-1.5 uppercase tracking-wider">
+          <i class="fa-solid fa-globe text-betawi-gold"></i>
+          <span>Alamat Link Undangan Kamu</span>
+        </label>
+        <span class="text-[10px] text-stone-400">Bisa diubah kalau sudah di-upload online</span>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-2">
+        <input 
+          type="text" 
+          id="baseUrl" 
+          value="https://wedding-zani-tazky.netlify.app"
+          placeholder="https://wedding-zani-tazky.netlify.app" 
+          class="flex-1 px-3.5 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-800 focus:ring-2 focus:ring-betawi-gold focus:outline-none bg-stone-50 font-mono"
+          oninput="onBaseUrlChange()"
+        />
+        <button onclick="setLocalUrl()" class="px-3.5 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-medium border border-stone-300 transition whitespace-nowrap">
+          Pakai File Lokal
+        </button>
+      </div>
+      <p class="text-[11px] text-stone-500 mt-2">
+        💡 <em>Tips: Sebelum di-upload online, lo bisa pakai contoh domain dulu. Nanti pas di-upload ke Vercel/Netlify/domain sendiri, tinggal ganti link di atas ini.</em>
+      </p>
+    </div>
+
+    <!-- TABS PILIHAN (SATUAN vs MASSAL) -->
+    <div class="flex border-b border-stone-200 mb-6">
+      <button onclick="switchTab('single')" id="tabSingle" class="py-3 px-6 font-semibold text-xs md:text-sm border-b-2 border-betawi-red text-betawi-red flex items-center gap-2">
+        <i class="fa-solid fa-user"></i>
+        <span>Kirim Satuan (Cepat)</span>
+      </button>
+      <button onclick="switchTab('bulk')" id="tabBulk" class="py-3 px-6 font-semibold text-xs md:text-sm text-stone-500 hover:text-stone-800 flex items-center gap-2">
+        <i class="fa-solid fa-users"></i>
+        <span>Input Massal (Banyak Tamu Sekaligus)</span>
+      </button>
+    </div>
+
+    <!-- ================= TAB 1: SATUAN ================= -->
+    <div id="sectionSingle" class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-stone-200 mb-6 space-y-5">
+      
+      <div>
+        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+          Nama Tamu Undangan
+        </label>
+        <div class="relative">
+          <input 
+            type="text" 
+            id="guestNameSingle" 
+            placeholder="Contoh: Bapak Budi & Keluarga / Kak Sarah / Dimas Pratama" 
+            class="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-300 text-sm focus:ring-2 focus:ring-betawi-gold focus:outline-none bg-stone-50"
+            oninput="generatePreview()"
+          />
+          <i class="fa-regular fa-user absolute left-3.5 top-3.5 text-stone-400"></i>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+          Nomor WhatsApp Tamu (Opsional)
+        </label>
+        <div class="relative">
+          <input 
+            type="text" 
+            id="guestPhoneSingle" 
+            placeholder="Contoh: 081234567890 (Jika dikosongkan, bisa pilih kontak manual di WhatsApp)" 
+            class="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-300 text-sm focus:ring-2 focus:ring-betawi-gold focus:outline-none bg-stone-50 font-mono"
+            oninput="generatePreview()"
+          />
+          <i class="fa-brands fa-whatsapp absolute left-3.5 top-3.5 text-stone-400"></i>
+        </div>
+      </div>
+
+      <!-- PREVIEW LINK UNDANGAN -->
+      <div class="p-4 rounded-2xl bg-amber-50/70 border border-betawi-gold/40">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-betawi-goldDark">Link Undangan Khusus:</span>
+          <span id="copyLinkBadge" class="text-[10px] text-emerald-700 font-bold hidden">Tersalin!</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input 
+            type="text" 
+            id="generatedUrl" 
+            readonly 
+            class="w-full px-3 py-2 rounded-lg bg-white border border-stone-300 text-xs font-mono text-stone-800"
+          />
+          <button onclick="copyGeneratedLink()" class="px-4 py-2 rounded-lg bg-stone-800 hover:bg-stone-900 text-white text-xs font-semibold flex items-center gap-1.5 transition">
+            <i class="fa-regular fa-copy"></i>
+            <span>Salin</span>
+          </button>
+          <button onclick="testLink()" class="px-3 py-2 rounded-lg bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-semibold transition" title="Buka Pratinjau">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- EDIT & PREVIEW DRAFT PESAN WHATSAPP -->
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">
+            Draft Kalimat Pesan WhatsApp
+          </label>
+          <button onclick="resetTemplate()" class="text-[10px] text-betawi-red hover:underline">
+            Reset Template
+          </button>
+        </div>
+        <textarea 
+          id="waTemplate" 
+          rows="8" 
+          class="w-full p-3.5 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-betawi-gold focus:outline-none bg-stone-50 font-sans leading-relaxed text-stone-800"
+          oninput="generatePreview()"
+        ></textarea>
+        <p class="text-[10px] text-stone-400 mt-1">
+          *Gunakan <code class="bg-stone-200 px-1 py-0.5 rounded text-stone-800">[NAMA_TAMU]</code> dan <code class="bg-stone-200 px-1 py-0.5 rounded text-stone-800">[LINK_UNDANGAN]</code> sebagai penanda otomatis.
+        </p>
+      </div>
+
+      <!-- TOMBOL UTAMA KIRIM KE WHATSAPP -->
+      <div class="pt-2 flex flex-col sm:flex-row gap-3">
+        <button 
+          onclick="sendToWhatsApp()" 
+          class="flex-1 py-3.5 px-6 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-emerald-600/30 transition transform active:scale-95"
+        >
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+          <span>Kirim Langsung via WhatsApp</span>
+        </button>
+
+        <button 
+          onclick="copyDraftMessage()" 
+          id="btnCopyDraft"
+          class="py-3.5 px-5 rounded-2xl bg-stone-800 hover:bg-stone-900 text-white font-semibold text-xs flex items-center justify-center gap-2 transition"
+        >
+          <i class="fa-regular fa-copy"></i>
+          <span>Salin Teks Lengkap</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ================= TAB 2: MASSAL (BULK) ================= -->
+    <div id="sectionBulk" class="hidden bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-stone-200 mb-6 space-y-5">
+      <div>
+        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">
+          Daftar Nama Tamu (Satu Nama Tiap Baris)
+        </label>
+        <p class="text-xs text-stone-500 mb-2">
+          Tempel atau ketik daftar nama tamu lo di sini. Nanti sistem otomatis membuatkan tombol WhatsApp untuk masing-masing orang:
+        </p>
+        <textarea 
+          id="bulkNamesInput" 
+          rows="6" 
+          placeholder="Bapak Ahmad & Keluarga&#10;Kak Dimas Pratama&#10;Sarah Octavia&#10;Om Heru & Tante Ani&#10;Rekan Kerja Tim Marketing"
+          class="w-full p-3.5 rounded-xl border border-stone-300 text-xs focus:ring-2 focus:ring-betawi-gold focus:outline-none bg-stone-50 font-sans leading-relaxed"
+        ></textarea>
+      </div>
+
+      <button onclick="processBulkNames()" class="w-full py-3 rounded-xl bg-betawi-gold hover:bg-betawi-goldDark text-stone-950 font-bold text-xs uppercase tracking-wider shadow transition">
+        <i class="fa-solid fa-list-check mr-1.5"></i>
+        <span>Proses & Tampilkan Semua Link</span>
+      </button>
+
+      <!-- HASIL MASSAL -->
+      <div id="bulkResultsContainer" class="hidden space-y-3 pt-4 border-t border-stone-200">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-stone-700 uppercase tracking-wider">
+            Hasil Daftar Tamu (<span id="bulkCount">0</span> orang):
+          </span>
+          <button onclick="copyAllBulkLinks()" class="text-xs text-betawi-red font-semibold hover:underline">
+            Salin Semua Link
+          </button>
+        </div>
+
+        <div id="bulkList" class="space-y-2.5 max-h-96 overflow-y-auto pr-1">
+          <!-- Item list dinamis di sini -->
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER NAV -->
+    <div class="text-center text-xs text-stone-500 py-4 flex items-center justify-center gap-4">
+      <a href="index.html" class="inline-flex items-center gap-1.5 text-betawi-red hover:underline font-semibold">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Lihat Website Undangan (index.html)</span>
+      </a>
+      <span>•</span>
+      <span>Pernikahan Zani & Tazky 2027</span>
+    </div>
+
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // Template pesan WhatsApp default
+    const defaultTemplate = 
+`Kepada Yth.
+Bapak/Ibu/Saudara/i: [NAMA_TAMU]
+
+Assalamu'alaikum Warahmatullahi Wabarakatuh.
+
+Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu pada acara pernikahan kami:
+
+💍 Rianzani Octavia & Tazky Bagus Ananda 💍
+
+Berikut link undangan digital untuk informasi lengkap acara, waktu, serta lokasi:
+[LINK_UNDANGAN]
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
+
+Wassalamu'alaikum Warahmatullahi Wabarakatuh.
+Kami yang berbahagia,
+Zani & Tazky`;
+
+    document.getElementById('waTemplate').value = defaultTemplate;
+
+    function resetTemplate() {
+      document.getElementById('waTemplate').value = defaultTemplate;
+      generatePreview();
+    }
+
+    function setLocalUrl() {
+      // Ambil path file saat ini di komputer
+      let localPath = window.location.href.replace('generator.html', 'index.html');
+      document.getElementById('baseUrl').value = localPath;
+      generatePreview();
+    }
+
+    function getBaseUrl() {
+      let base = document.getElementById('baseUrl').value.trim();
+      if (!base) {
+        // Otomatis deteksi jika dibuka online di netlify
+        if (window.location.protocol.startsWith('http')) {
+          base = window.location.origin;
+        } else {
+          base = "https://wedding-zani-tazky.netlify.app";
+        }
+      }
+      return base.replace(/\/$/, "");
+    }
+
+    // Simpan link otomatis ke localStorage browser agar tidak hilang saat refresh
+    function onBaseUrlChange() {
+      const val = document.getElementById('baseUrl').value.trim();
+      localStorage.setItem('wedding_base_url', val);
+      generatePreview();
+    }
+
+    // Inisialisasi awal saat halaman dibuka / direfresh
+    function initBaseUrl() {
+      const savedUrl = localStorage.getItem('wedding_base_url');
+      if (savedUrl) {
+        document.getElementById('baseUrl').value = savedUrl;
+      } else if (window.location.protocol.startsWith('http')) {
+        // Jika sudah online di netlify, otomatis pakai domain netlify tersebut
+        document.getElementById('baseUrl').value = window.location.origin;
+      } else {
+        document.getElementById('baseUrl').value = "https://wedding-zani-tazky.netlify.app";
+      }
+      generatePreview();
+    }
+
+    function generatePreview() {
+      const name = document.getElementById('guestNameSingle').value.trim() || "Tamu Undangan";
+      const base = getBaseUrl();
+      
+      // Buat URL dengan query parameter
+      const encodedName = encodeURIComponent(name);
+      let separator = base.includes('?') ? '&' : '?';
+      // Jika baseUrl belum mengarah ke index.html dan bukan format domain biasa
+      let fullUrl = `${base}${separator}to=${encodedName}`;
+
+      document.getElementById('generatedUrl').value = fullUrl;
+    }
+
+    function copyGeneratedLink() {
+      const urlInput = document.getElementById('generatedUrl');
+      urlInput.select();
+      navigator.clipboard.writeText(urlInput.value).then(() => {
+        const badge = document.getElementById('copyLinkBadge');
+        badge.classList.remove('hidden');
+        setTimeout(() => badge.classList.add('hidden'), 2000);
+      });
+    }
+
+    function testLink() {
+      const url = document.getElementById('generatedUrl').value;
+      window.open(url, '_blank');
+    }
+
+    function formatWhatsAppMessage() {
+      const name = document.getElementById('guestNameSingle').value.trim() || "Tamu Undangan";
+      const link = document.getElementById('generatedUrl').value;
+      let template = document.getElementById('waTemplate').value;
+
+      return template
+        .replace(/\[NAMA_TAMU\]/g, name)
+        .replace(/\[LINK_UNDANGAN\]/g, link);
+    }
+
+    function sendToWhatsApp() {
+      const message = formatWhatsAppMessage();
+      let phone = document.getElementById('guestPhoneSingle').value.trim();
+
+      // Normalisasi format nomor telpon (misal 0812 -> 62812)
+      if (phone) {
+        phone = phone.replace(/[^0-9]/g, '');
+        if (phone.startsWith('0')) {
+          phone = '62' + phone.slice(1);
+        }
+      }
+
+      const encodedMsg = encodeURIComponent(message);
+      let waUrl = phone 
+        ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMsg}`
+        : `https://api.whatsapp.com/send?text=${encodedMsg}`;
+
+      window.open(waUrl, '_blank');
+    }
+
+    function copyDraftMessage() {
+      const message = formatWhatsAppMessage();
+      navigator.clipboard.writeText(message).then(() => {
+        const btn = document.getElementById('btnCopyDraft');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Tersalin!</span>`;
+        btn.classList.add('bg-emerald-700');
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.classList.remove('bg-emerald-700');
+        }, 2000);
+      });
+    }
+
+    // Switch Tabs
+    function switchTab(tab) {
+      const singleTab = document.getElementById('tabSingle');
+      const bulkTab = document.getElementById('tabBulk');
+      const sectionSingle = document.getElementById('sectionSingle');
+      const sectionBulk = document.getElementById('sectionBulk');
+
+      if (tab === 'single') {
+        singleTab.className = "py-3 px-6 font-semibold text-xs md:text-sm border-b-2 border-betawi-red text-betawi-red flex items-center gap-2";
+        bulkTab.className = "py-3 px-6 font-semibold text-xs md:text-sm text-stone-500 hover:text-stone-800 flex items-center gap-2";
+        sectionSingle.classList.remove('hidden');
+        sectionBulk.classList.add('hidden');
+      } else {
+        bulkTab.className = "py-3 px-6 font-semibold text-xs md:text-sm border-b-2 border-betawi-red text-betawi-red flex items-center gap-2";
+        singleTab.className = "py-3 px-6 font-semibold text-xs md:text-sm text-stone-500 hover:text-stone-800 flex items-center gap-2";
+        sectionBulk.classList.remove('hidden');
+        sectionSingle.classList.add('hidden');
+      }
+    }
+
+    // Pemrosesan Massal (Bulk)
+    let processedLinks = [];
+
+    function processBulkNames() {
+      const rawText = document.getElementById('bulkNamesInput').value;
+      const lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+      if (lines.length === 0) {
+        alert("Silakan masukkan minimal 1 nama tamu!");
+        return;
+      }
+
+      const base = getBaseUrl();
+      const container = document.getElementById('bulkResultsContainer');
+      const list = document.getElementById('bulkList');
+      const template = document.getElementById('waTemplate').value;
+
+      list.innerHTML = '';
+      processedLinks = [];
+
+      lines.forEach((name, idx) => {
+        const separator = base.includes('?') ? '&' : '?';
+        const link = `${base}${separator}to=${encodeURIComponent(name)}`;
+        const message = template.replace(/\[NAMA_TAMU\]/g, name).replace(/\[LINK_UNDANGAN\]/g, link);
+        const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+
+        processedLinks.push({ name, link, message });
+
+        const card = document.createElement('div');
+        card.className = "p-3.5 rounded-xl bg-stone-50 border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs";
+        card.innerHTML = `
+          <div class="overflow-hidden">
+            <p class="font-bold text-stone-900 text-sm">${name}</p>
+            <p class="text-[11px] font-mono text-stone-500 truncate max-w-sm mt-0.5">${link}</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="copySingleBulk('${encodeURIComponent(link)}', this)" class="px-3 py-1.5 rounded-lg bg-stone-200 hover:bg-stone-300 text-stone-800 font-medium text-xs transition">
+              <i class="fa-regular fa-copy"></i> Salin Link
+            </button>
+            <a href="${waUrl}" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1.5 transition">
+              <i class="fa-brands fa-whatsapp"></i> Kirim WA
+            </a>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+
+      document.getElementById('bulkCount').innerText = lines.length;
+      container.classList.remove('hidden');
+    }
+
+    function copySingleBulk(encodedLink, btn) {
+      const link = decodeURIComponent(encodedLink);
+      navigator.clipboard.writeText(link).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<i class="fa-solid fa-check"></i> Tersalin`;
+        btn.classList.add('bg-emerald-100', 'text-emerald-800');
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.classList.remove('bg-emerald-100', 'text-emerald-800');
+        }, 1500);
+      });
+    }
+
+    function copyAllBulkLinks() {
+      if (processedLinks.length === 0) return;
+      const text = processedLinks.map(p => `${p.name}:\n${p.link}\n`).join('\n');
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Semua link berhasil disalin ke clipboard!");
+      });
+    }
+
+    // Inisialisasi awal
+    initBaseUrl();
+  </script>
+</body>
+</html>

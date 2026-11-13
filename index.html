@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>The Wedding of Zani & Tazky</title>
+  
+  <meta name="description" content="Undangan Pernikahan Rianzani Octavia & Tazky Bagus Ananda - Sabtu, 9 Januari 2027" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Great Vibes, Cinzel, Playfair Display, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Animate.css for smooth page transitions -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            betawi: {
+              creamBg: '#FBF5EC',
+              creamCard: '#FFFDF9',
+              greenNav: '#134E4A',      /* Hijau Tua khas navbar referensi */
+              greenDark: '#064E3B',
+              greenMint: '#10B981',
+              goldNav: '#B48A44',       /* Emas Brown khas tombol active */
+              goldLight: '#E8D5B5',
+              redOndel: '#BE123C',
+              brownText: '#4A2810',
+            }
+          },
+          fontFamily: {
+            title: ['"Great Vibes"', 'cursive'],
+            heading: ['"Cinzel"', 'serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Ornamen Gigi Balang Betawi */
+    .gigi-balang-top {
+      background: repeating-linear-gradient(
+        -45deg,
+        #B48A44,
+        #B48A44 10px,
+        #134E4A 10px,
+        #134E4A 20px
+      );
+      height: 10px;
+      width: 100%;
+    }
+
+    /* Background Hijau Vintage Estetik dari Upload User */
+    .bg-betawi-texture {
+      background-color: #8CA88E;
+      background-image: url('bg-green.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Animasi Ondel-Ondel Mengayun Lembut (Swaying) */
+    @keyframes ondel-sway-left {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      50% { transform: rotate(-3deg) translateY(-4px); }
+    }
+    @keyframes ondel-sway-right {
+      0%, 100% { transform: rotate(0deg) translateY(0); }
+      50% { transform: rotate(3deg) translateY(-4px); }
+    }
+    .animate-ondel-left {
+      animation: ondel-sway-left 3.5s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+    .animate-ondel-right {
+      animation: ondel-sway-right 3.5s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+
+    /* Floating music rotation */
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-spin-slow {
+      animation: spin-slow 10s linear infinite;
+    }
+
+    /* Mobile Container Frame: Adaptif untuk Laptop & 100% Pas di Layar HP */
+    .mobile-frame {
+      max-width: 440px;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        background-color: transparent !important;
+      }
+      .mobile-frame {
+        max-width: 100% !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+    }
+
+    /* Page Viewport Area */
+    .page-container {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Transisi Halus Pergantian Halaman */
+    .page-section {
+      display: none;
+      min-height: 100%;
+      width: 100%;
+      padding-bottom: 90px;
+      perspective: 1200px;
+      box-sizing: border-box;
+    }
+    @keyframes fall {
+      0% {
+        opacity: 0;
+        top: -10%;
+        transform: translateX(0) rotate(0deg);
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 0;
+        top: 105%;
+        transform: translateX(80px) rotate(360deg);
+      }
+    }
+    .leaf {
+      position: absolute;
+      pointer-events: none;
+      z-index: 25;
+      animation: fall linear infinite;
+    }
+
+    /* 2. Animasi Mengapung Lembut (Floating) untuk Rumah Betawi & Ondel-Ondel */
+    @keyframes floatingSmooth {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+    .animate-floating {
+      animation: floatingSmooth 4s ease-in-out infinite;
+    }
+
+    /* 3. Efek Kilau Cahaya Emas (Golden Shimmer / Shine Effect) */
+    @keyframes goldShine {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+    .shimmer-gold {
+      background: linear-gradient(90deg, #4A2810 0%, #D4AF37 35%, #FFF8DC 50%, #D4AF37 65%, #4A2810 100%);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: goldShine 4s linear infinite;
+    }
+
+    /* 4. Transisi Halaman Efek Balik Buku 3D Lembut & Lebih Terasa (Smooth Page Turn) */
+    .page-section {
+      display: none;
+      min-height: 100%;
+      padding-bottom: 90px;
+      perspective: 1200px;
+    }
+    .page-section.active {
+      display: block !important;
+      animation: pageTurn 0.85s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+      transform-origin: left center;
+    }
+
+    @keyframes pageTurn {
+      0% {
+        opacity: 0;
+        transform: rotateY(-28deg) scale(0.92) translateX(25px);
+        filter: blur(2px);
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 1;
+        transform: rotateY(0deg) scale(1) translateX(0);
+        filter: blur(0px);
+      }
+    }
+  </style>
+</head>
+<body class="bg-stone-900 flex justify-center items-center min-h-screen text-stone-800 font-sans selection:bg-betawi-goldNav selection:text-white antialiased overflow-hidden">
+
+  <!-- AUDIO BACKGROUND (The Beatles - Here, There And Everywhere) -->
+  <audio id="weddingAudio" loop preload="auto">
+    <source src="song.mp3" type="audio/mp3" />
+    <source src="The Beatles - Here, There And Everywhere (Instrumental & Backing Vocals).mp3" type="audio/mp3" />
+  </audio>
+
+  <!-- ==================== MOBILE SCREEN WRAPPER ==================== -->
+  <div class="mobile-frame bg-betawi-texture relative">
+    
+    <!-- Wadah Animasi Kelopak Bunga & Daun Melayang -->
+    <div id="leavesContainer" class="absolute inset-0 pointer-events-none overflow-hidden z-20"></div>
+
+    <!-- Ornamen Gigi Balang Atas -->
+    <div class="gigi-balang-top shrink-0 z-30"></div>
+
+    <!-- FLOATING MUSIC & AUTOPLAY CONTROL (Pojok Kanan Atas / Tengah) -->
+    <div class="absolute top-4 right-4 z-40 flex items-center gap-2">
+      <button onclick="toggleMusic()" class="w-10 h-10 rounded-full bg-betawi-greenNav/90 border-2 border-betawi-goldNav text-white shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition">
+        <i id="musicIcon" class="fa-solid fa-volume-high text-xs"></i>
+      </button>
+    </div>
+
+    <!-- ==================== VIEWPORT PAGES ==================== -->
+    <div class="page-container" id="pageViewport">
+
+      <!-- ================= 1. HALAMAN: OPENING (PERSIS SEPERTI FOTO) ================= -->
+      <section id="page-opening" class="page-section active relative min-h-full flex flex-col justify-between items-center text-center px-4 py-3 sm:py-5 overflow-hidden w-full h-full">
+        
+        <!-- Ornamen Monas Samar di Background Tengah -->
+        <div class="absolute inset-0 flex justify-center items-center pointer-events-none opacity-[0.08]">
+          <svg class="w-64 sm:w-72 h-auto" viewBox="0 0 100 200" fill="#4A2810">
+            <rect x="47" y="10" width="6" height="15" rx="3" fill="#B48A44"/>
+            <polygon points="45,25 55,25 57,40 43,40" fill="#B48A44"/>
+            <rect x="46" y="40" width="8" height="100"/>
+            <polygon points="46,140 54,140 68,170 32,170"/>
+            <rect x="25" y="170" width="50" height="25" rx="2"/>
+          </svg>
+        </div>
+
+        <!-- Bunga & Ornamen Sudut Atas Kiri & Kanan -->
+        <div class="absolute top-0 left-0 w-20 sm:w-24 h-20 sm:h-24 pointer-events-none opacity-40">
+          <svg viewBox="0 0 100 100" fill="#B48A44">
+            <path d="M0,0 Q50,10 70,50 Q40,30 0,70 Z" />
+            <circle cx="20" cy="20" r="5" fill="#134E4A" />
+            <circle cx="45" cy="30" r="4" fill="#BE123C" />
+          </svg>
+        </div>
+        <div class="absolute top-0 right-0 w-20 sm:w-24 h-20 sm:h-24 pointer-events-none opacity-40 -scale-x-100">
+          <svg viewBox="0 0 100 100" fill="#B48A44">
+            <path d="M0,0 Q50,10 70,50 Q40,30 0,70 Z" />
+            <circle cx="20" cy="20" r="5" fill="#134E4A" />
+            <circle cx="45" cy="30" r="4" fill="#BE123C" />
+          </svg>
+        </div>
+
+        <!-- HEADER OPENING -->
+        <div class="relative z-10 pt-2 shrink-0">
+          <p class="font-heading text-[10px] sm:text-xs tracking-[0.25em] text-betawi-brownText/80 uppercase font-medium">The Wedding Of</p>
+          <h1 class="font-serif text-2xl sm:text-4xl font-bold shimmer-gold mt-0.5 tracking-wide">
+            Zani &amp; Tazky
+          </h1>
+          <p class="text-[10px] sm:text-[11px] text-stone-600 font-medium tracking-wider mt-0.5">Sabtu, 09 Januari 2027</p>
+        </div>
+
+        <!-- ILUSTRASI RUMAH ADAT KEBAYA BETAWI (DENGAN ANIMASI MENGAPUNG LEMBUT) -->
+        <div class="relative z-10 my-auto py-1 flex justify-center w-full animate-floating shrink-0">
+          <div class="relative w-48 sm:w-60 max-w-full drop-shadow-md">
+            <!-- Vector Rumah Adat Betawi -->
+            <svg class="w-full h-auto" viewBox="0 0 300 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Atap Rumah Bapang/Kebaya -->
+              <polygon points="150,15 290,65 10,65" fill="#78350F" stroke="#451A03" stroke-width="2"/>
+              <polygon points="150,22 280,65 20,65" fill="#92400E"/>
+              <rect x="15" y="62" width="270" height="7" fill="#F59E0B" stroke="#B45309"/>
+              <!-- Dinding & Tiang Rumah Kayu Toska/Hijau -->
+              <rect x="25" y="69" width="250" height="75" fill="#FDE68A" stroke="#451A03" stroke-width="1.5"/>
+              <!-- Pintu Kembar Tengah -->
+              <rect x="125" y="77" width="50" height="67" fill="#0D9488" stroke="#115E59" stroke-width="2"/>
+              <line x1="150" y1="77" x2="150" y2="144" stroke="#115E59" stroke-width="1.5"/>
+              <rect x="131" y="83" width="16" height="24" fill="#99F6E4" opacity="0.6"/>
+              <rect x="153" y="83" width="16" height="24" fill="#99F6E4" opacity="0.6"/>
+              <!-- Jendela Kanan & Kiri -->
+              <rect x="45" y="85" width="40" height="35" fill="#0D9488" stroke="#115E59" stroke-width="1.5"/>
+              <line x1="65" y1="85" x2="65" y2="120" stroke="#115E59"/>
+              <rect x="215" y="85" width="40" height="35" fill="#0D9488" stroke="#115E59" stroke-width="1.5"/>
+              <line x1="235" y1="85" x2="235" y2="120" stroke="#115E59"/>
+              <!-- Pagar Langkan Khas Rumah Betawi -->
+              <rect x="20" y="122" width="260" height="22" fill="#0F766E" stroke="#115E59"/>
+              <circle cx="45" cy="133" r="3" fill="#FDE68A"/>
+              <circle cx="75" cy="133" r="3" fill="#FDE68A"/>
+              <circle cx="105" cy="133" r="3" fill="#FDE68A"/>
+              <circle cx="195" cy="133" r="3" fill="#FDE68A"/>
+              <circle cx="225" cy="133" r="3" fill="#FDE68A"/>
+              <circle cx="255" cy="133" r="3" fill="#FDE68A"/>
+              <!-- Lantai Teras -->
+              <rect x="10" y="144" width="280" height="12" fill="#78350F"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- KOTAK PENERIMA UNDANGAN (NAMA TAMU PERSIS DI TENGAH SIMETRIS) -->
+        <div class="relative z-10 w-full max-w-xs mx-auto my-auto py-1 flex flex-col items-center justify-center text-center shrink-0">
+          <p class="text-[11px] sm:text-xs text-betawi-brownText font-medium text-center w-full">Kepada Yth;</p>
+          <p class="text-[11px] sm:text-xs text-stone-600 mb-1 text-center w-full">Bapak/Ibu/Saudara/i</p>
+          
+          <div class="p-2.5 sm:p-3.5 px-4 rounded-2xl bg-white/85 border-2 border-betawi-goldNav/60 shadow-md backdrop-blur-md w-full flex items-center justify-center text-center">
+            <h2 id="guestNameDisplay" class="font-serif text-base sm:text-xl font-bold text-betawi-brownText tracking-wide text-center w-full m-0">
+              Tamu Undangan
+            </h2>
+          </div>
+          
+          <!-- Tombol Mulai Buka Halaman (Presisi Tengah) -->
+          <div class="w-full flex justify-center mt-3">
+            <button type="button" onclick="goToPage('salam')" class="px-7 py-2.5 sm:px-8 sm:py-3 rounded-full bg-gradient-to-r from-betawi-goldNav to-amber-700 hover:from-amber-700 hover:to-betawi-goldNav text-white font-bold text-xs tracking-wider uppercase shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer relative z-30 border border-betawi-goldLight/40">
+              <i class="fa-solid fa-envelope-open text-xs"></i>
+              <span>Buka Undangan</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SEPASANG ONDEL-ONDEL DI POJOK BAWAH (PERSIS SEPERTI FOTO) -->
+        <div class="w-full flex justify-between items-end relative z-10 px-1 pointer-events-none shrink-0 pt-1">
+          <!-- Ondel-Ondel Pria (Kiri Bawah, Muka Merah, Baju Hijau) -->
+          <div class="w-16 sm:w-20 animate-ondel-left drop-shadow-lg">
+            <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Kembang Kelapa Hiasan Kepala -->
+              <path d="M50 20 Q15 5 5 0 Q20 15 50 25" stroke="#F59E0B" stroke-width="2.5"/>
+              <path d="M50 20 Q25 -10 15 -15 Q30 5 50 22" stroke="#BE123C" stroke-width="2.5"/>
+              <path d="M50 20 Q40 -20 35 -25 Q45 0 50 20" stroke="#10B981" stroke-width="2.5"/>
+              <path d="M50 20 Q60 -20 65 -25 Q55 0 50 20" stroke="#3B82F6" stroke-width="2.5"/>
+              <path d="M50 20 Q75 -10 85 -15 Q70 5 50 22" stroke="#F59E0B" stroke-width="2.5"/>
+              <path d="M50 20 Q85 5 95 0 Q80 15 50 25" stroke="#BE123C" stroke-width="2.5"/>
+              <!-- Topi Emas Pria -->
+              <polygon points="28,28 72,28 65,16 35,16" fill="#F59E0B"/>
+              <!-- Muka Merah Gagah -->
+              <rect x="25" y="24" width="50" height="36" rx="14" fill="#BE123C"/>
+              <!-- Mata Senyum & Kumis Tebal Hitam -->
+              <ellipse cx="38" cy="38" rx="4" ry="2" fill="#1C1917"/>
+              <ellipse cx="62" cy="38" rx="4" ry="2" fill="#1C1917"/>
+              <path d="M30 46 Q50 44 50 48 Q50 44 70 46 Q50 52 30 46 Z" fill="#1C1917"/>
+              <circle cx="50" cy="53" r="2" fill="#FFFFFF"/>
+              <!-- Badan Baju Hijau Betawi & Gesper Emas -->
+              <path d="M15 130 L25 58 L75 58 L85 130 Z" fill="#10B981"/>
+              <!-- Rompi / Selempang Kuning Kotak -->
+              <rect x="25" y="60" width="22" height="70" fill="#FBBF24" opacity="0.85"/>
+              <rect x="53" y="60" width="22" height="70" fill="#FBBF24" opacity="0.85"/>
+              <rect x="18" y="90" width="64" height="12" fill="#B45309"/>
+              <rect x="42" y="87" width="16" height="18" fill="#FDE68A" stroke="#78350F" stroke-width="1.5"/>
+            </svg>
+          </div>
+
+          <!-- Ondel-Ondel Wanita (Kanan Bawah, Muka Putih Ayu, Baju Merah) -->
+          <div class="w-16 sm:w-20 animate-ondel-right drop-shadow-lg">
+            <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Kembang Kelapa Hiasan Kepala -->
+              <path d="M50 20 Q15 5 5 0 Q20 15 50 25" stroke="#EC4899" stroke-width="2.5"/>
+              <path d="M50 20 Q25 -10 15 -15 Q30 5 50 22" stroke="#F59E0B" stroke-width="2.5"/>
+              <path d="M50 20 Q40 -20 35 -25 Q45 0 50 20" stroke="#10B981" stroke-width="2.5"/>
+              <path d="M50 20 Q60 -20 65 -25 Q55 0 50 20" stroke="#8B5CF6" stroke-width="2.5"/>
+              <path d="M50 20 Q75 -10 85 -15 Q70 5 50 22" stroke="#F59E0B" stroke-width="2.5"/>
+              <path d="M50 20 Q85 5 95 0 Q80 15 50 25" stroke="#EC4899" stroke-width="2.5"/>
+              <!-- Mahkota Cantik -->
+              <polygon points="28,28 72,28 65,14 35,14" fill="#F59E0B"/>
+              <!-- Muka Putih Natural Ayu -->
+              <rect x="25" y="24" width="50" height="36" rx="14" fill="#FFFDF0" stroke="#E5C07B"/>
+              <!-- Mata Cantik, Pipi Merona & Bibir Senyum -->
+              <ellipse cx="38" cy="38" rx="3.5" ry="4" fill="#1C1917"/>
+              <ellipse cx="62" cy="38" rx="3.5" ry="4" fill="#1C1917"/>
+              <circle cx="34" cy="44" r="3" fill="#FB7185" opacity="0.6"/>
+              <circle cx="66" cy="44" r="3" fill="#FB7185" opacity="0.6"/>
+              <path d="M44 48 Q50 52 56 48" stroke="#BE123C" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Badan Baju Merah Betawi & Selendang Hijau -->
+              <path d="M15 130 L25 58 L75 58 L85 130 Z" fill="#BE123C"/>
+              <!-- Selendang Hijau Toska -->
+              <path d="M72 58 L30 130 L45 130 L80 75 Z" fill="#059669"/>
+            </svg>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= 2. HALAMAN: SALAM & PEMBUKA ================= -->
+      <section id="page-salam" class="page-section px-6 py-8 text-center">
+        <div class="max-w-sm mx-auto space-y-6">
+          <div class="inline-flex items-center gap-2 text-betawi-goldNav text-xs font-bold uppercase tracking-widest">
+            <i class="fa-solid fa-moon"></i>
+            <span>Salam Pembuka</span>
+            <i class="fa-solid fa-moon"></i>
+          </div>
+
+          <h2 class="font-serif text-xl font-bold text-betawi-brownText">
+            Assalamu’alaikum Wr. Wb.
+          </h2>
+
+          <div class="p-6 rounded-3xl bg-white/90 border border-betawi-goldNav/40 shadow-sm leading-relaxed text-xs text-stone-700 space-y-3">
+            <p>
+              Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, kami bermaksud menyelenggarakan syukuran pernikahan putra-putri kami:
+            </p>
+            <p class="font-serif text-lg font-bold text-betawi-greenNav">
+              Rianzani Octavia<br/>
+              <span class="font-title text-2xl text-betawi-goldNav font-normal">&amp;</span><br/>
+              Tazky Bagus Ananda
+            </p>
+            <p>
+              Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
+            </p>
+          </div>
+
+          <!-- Tombol Lanjut ke Quotes -->
+          <div class="flex justify-center pt-2">
+            <button onclick="goToPage('quotes')" class="px-6 py-2.5 rounded-full bg-betawi-greenNav text-white text-xs font-semibold flex items-center gap-2 shadow hover:bg-betawi-greenDark transition">
+              <span>Buka Ayat Suci</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. HALAMAN: QUOTES & DOA RESTU ================= -->
+      <section id="page-quotes" class="page-section px-6 py-8 text-center">
+        <div class="max-w-sm mx-auto space-y-6">
+          <div class="w-12 h-12 mx-auto rounded-full bg-betawi-greenNav text-white flex items-center justify-center shadow-md">
+            <i class="fa-solid fa-book-quran text-lg"></i>
+          </div>
+
+          <h2 class="font-serif text-lg font-bold text-betawi-brownText uppercase tracking-wider">
+            Ungkapan Doa &amp; Ayat Suci
+          </h2>
+
+          <div class="p-6 rounded-3xl bg-white/90 border border-betawi-goldNav/40 shadow-sm text-stone-700 space-y-4">
+            <p class="font-serif text-xs md:text-sm italic leading-relaxed">
+              "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+            </p>
+            <div class="font-heading text-xs tracking-widest text-betawi-goldNav font-bold uppercase">
+              — QS. Ar-Rum: 21 —
+            </div>
+          </div>
+
+          <!-- Hitung Mundur Acara Mini -->
+          <div class="p-4 rounded-3xl bg-betawi-greenNav text-white border border-betawi-goldNav shadow-sm">
+            <p class="text-[10px] uppercase font-bold tracking-widest text-betawi-goldLight mb-2">Hitung Mundur Hari Bahagia</p>
+            <div class="grid grid-cols-4 gap-2 text-center">
+              <div class="bg-black/25 rounded-xl p-2">
+                <span id="days" class="block font-heading text-base font-bold text-betawi-goldLight">00</span>
+                <span class="text-[9px] uppercase text-emerald-200">Hari</span>
+              </div>
+              <div class="bg-black/25 rounded-xl p-2">
+                <span id="hours" class="block font-heading text-base font-bold text-betawi-goldLight">00</span>
+                <span class="text-[9px] uppercase text-emerald-200">Jam</span>
+              </div>
+              <div class="bg-black/25 rounded-xl p-2">
+                <span id="minutes" class="block font-heading text-base font-bold text-betawi-goldLight">00</span>
+                <span class="text-[9px] uppercase text-emerald-200">Menit</span>
+              </div>
+              <div class="bg-black/25 rounded-xl p-2">
+                <span id="seconds" class="block font-heading text-base font-bold text-betawi-goldLight">00</span>
+                <span class="text-[9px] uppercase text-emerald-200">Detik</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-center pt-2">
+            <button onclick="goToPage('mempelai')" class="px-6 py-2.5 rounded-full bg-betawi-greenNav text-white text-xs font-semibold flex items-center gap-2 shadow hover:bg-betawi-greenDark transition">
+              <span>Profil Mempelai</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. HALAMAN: MEMPELAI ================= -->
+      <section id="page-mempelai" class="page-section px-6 py-8 text-center">
+        <div class="max-w-sm mx-auto space-y-6">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] font-bold text-betawi-goldNav">Pengantin</p>
+            <h2 class="font-serif text-2xl font-bold text-betawi-brownText mt-0.5">Kedua Mempelai</h2>
+          </div>
+
+          <!-- KARTU MEMPELAI WANITA (DAHULUAN) -->
+          <div class="p-5 rounded-3xl bg-white/95 border-2 border-betawi-greenNav/30 shadow-md relative hover:shadow-lg transition">
+            <!-- Foto Pengantin Wanita Animasi Betawi -->
+            <div class="w-28 h-28 mx-auto rounded-full p-1.5 bg-gradient-to-tr from-betawi-goldNav to-emerald-300 flex items-center justify-center shadow-lg relative overflow-hidden group">
+              <img src="zani.jpg" alt="Rianzani Octavia" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <h3 class="font-serif text-xl font-bold text-betawi-brownText mt-3">Rianzani Octavia</h3>
+            <p class="font-title text-2xl text-betawi-goldNav my-0.5">(Zani)</p>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              Putri Tercinta dari:<br/>
+              <strong>Bapak Ridwansyah</strong> &amp; <strong>Ibu Nunung</strong>
+            </p>
+            <a href="https://instagram.com/octavia_zani" target="_blank" class="inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-full bg-emerald-50 border border-betawi-greenNav/30 text-betawi-greenNav text-xs font-semibold hover:bg-betawi-greenNav hover:text-white transition">
+              <i class="fa-brands fa-instagram"></i>
+              <span>@octavia_zani</span>
+            </a>
+          </div>
+
+          <!-- SIMBOL PENGHUBUNG & -->
+          <div class="flex items-center justify-center gap-3">
+            <span class="h-[1px] w-12 bg-betawi-goldNav"></span>
+            <div class="w-8 h-8 rounded-full bg-betawi-greenNav text-white font-title text-xl flex items-center justify-center shadow">
+              &amp;
+            </div>
+            <span class="h-[1px] w-12 bg-betawi-goldNav"></span>
+          </div>
+
+          <!-- KARTU MEMPELAI PRIA -->
+          <div class="p-5 rounded-3xl bg-white/95 border-2 border-betawi-greenNav/30 shadow-md relative hover:shadow-lg transition">
+            <!-- Foto Pengantin Pria Animasi Betawi -->
+            <div class="w-28 h-28 mx-auto rounded-full p-1.5 bg-gradient-to-tr from-betawi-goldNav to-emerald-300 flex items-center justify-center shadow-lg relative overflow-hidden group">
+              <img src="tazky.jpg" alt="Tazky Bagus Ananda" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            <h3 class="font-serif text-xl font-bold text-betawi-brownText mt-3">Tazky Bagus Ananda</h3>
+            <p class="font-title text-2xl text-betawi-goldNav my-0.5">(Tazky)</p>
+            <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+              Putra Tercinta dari:<br/>
+              <strong>Bapak Azmat Muzakir (Alm)</strong> &amp; <strong>Ibu Tuti Imriti (Almh)</strong>
+            </p>
+            <a href="https://instagram.com/tazkyba" target="_blank" class="inline-flex items-center gap-1.5 mt-3 px-3 py-1 rounded-full bg-emerald-50 border border-betawi-greenNav/30 text-betawi-greenNav text-xs font-semibold hover:bg-betawi-greenNav hover:text-white transition">
+              <i class="fa-brands fa-instagram"></i>
+              <span>@tazkyba</span>
+            </a>
+          </div>
+
+          <div class="flex justify-center pt-2">
+            <button onclick="goToPage('acara')" class="px-6 py-2.5 rounded-full bg-betawi-greenNav text-white text-xs font-semibold flex items-center gap-2 shadow hover:bg-betawi-greenDark transition">
+              <span>Agenda Acara &amp; Lokasi</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. HALAMAN: ACARA & LOKASI ================= -->
+      <section id="page-acara" class="page-section px-6 py-8 text-center">
+        <div class="max-w-sm mx-auto space-y-5">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] font-bold text-betawi-goldNav">Waktu &amp; Tempat</p>
+            <h2 class="font-serif text-2xl font-bold text-betawi-brownText mt-0.5">Rangkaian Acara</h2>
+          </div>
+
+          <!-- CARD AKAD -->
+          <div class="p-5 rounded-3xl bg-white/95 border-l-4 border-l-betawi-goldNav border border-stone-200 text-left shadow-sm">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">
+                Akad Nikah
+              </span>
+              <i class="fa-solid fa-ring text-betawi-goldNav"></i>
+            </div>
+            <h3 class="font-serif text-base font-bold text-stone-900">Sabtu, 9 Januari 2027</h3>
+            <p class="text-xs text-stone-600 mt-1 flex items-center gap-1.5">
+              <i class="fa-regular fa-clock text-betawi-greenNav"></i>
+              <strong>08.00 WIB - Selesai</strong>
+            </p>
+            <p class="text-xs text-stone-600 mt-1">Gelanggang Remaja Tebet (Jl. Tebet Timur Dalam III No.15)</p>
+          </div>
+
+          <!-- CARD RESEPSI -->
+          <div class="p-5 rounded-3xl bg-white/95 border-l-4 border-l-betawi-greenNav border border-stone-200 text-left shadow-sm">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900">
+                Resepsi Pernikahan
+              </span>
+              <i class="fa-solid fa-crown text-betawi-greenNav"></i>
+            </div>
+            <h3 class="font-serif text-base font-bold text-stone-900">Sabtu, 9 Januari 2027</h3>
+            <p class="text-xs text-stone-600 mt-1 flex items-center gap-1.5">
+              <i class="fa-regular fa-clock text-betawi-greenNav"></i>
+              <strong>11.00 WIB - 14.00 WIB</strong>
+            </p>
+            <p class="text-xs text-stone-600 mt-1">Gelanggang Remaja Tebet (Jl. Tebet Timur Dalam III No.15)</p>
+          </div>
+
+          <!-- TOMBOL MAPS -->
+          <div class="pt-2">
+            <a href="https://maps.app.goo.gl/iQyDVaRyB7ZReWLF9?g_st=ic" target="_blank" class="w-full py-3 rounded-2xl bg-betawi-greenNav hover:bg-betawi-greenDark text-white text-xs font-bold uppercase tracking-wider shadow flex items-center justify-center gap-2 transition">
+              <i class="fa-solid fa-diamond-turn-right"></i>
+              <span>Petunjuk Arah Google Maps</span>
+            </a>
+          </div>
+
+          <!-- HADIAH DIGITAL & BUKU TAMU EXPANDER -->
+          <div class="pt-2 flex gap-2">
+            <button onclick="goToPage('kado')" class="flex-1 py-2.5 rounded-2xl bg-white border border-betawi-goldNav text-betawi-brownText text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-gift text-betawi-goldNav"></i>
+              <span>Kirim Hadiah</span>
+            </button>
+            <button onclick="goToPage('ucapan')" class="flex-1 py-2.5 rounded-2xl bg-white border border-betawi-goldNav text-betawi-brownText text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-comments text-betawi-goldNav"></i>
+              <span>Buku Tamu</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 6. HALAMAN: KADO / TANDA KASIH ================= -->
+      <section id="page-kado" class="page-section px-6 py-6 text-center">
+        <div class="max-w-sm mx-auto space-y-4">
+          
+          <!-- TOMBOL KEMBALI (BACK TO ACARA) -->
+          <div class="flex items-center justify-between pb-1 border-b border-betawi-goldNav/30">
+            <button onclick="goToPage('acara')" class="px-3.5 py-1.5 rounded-full bg-white/90 border border-betawi-goldNav text-betawi-brownText text-xs font-semibold flex items-center gap-1.5 shadow-sm hover:bg-betawi-goldNav hover:text-white transition">
+              <i class="fa-solid fa-arrow-left text-xs"></i>
+              <span>Kembali ke Acara</span>
+            </button>
+            <span class="text-[10px] uppercase tracking-widest font-bold text-betawi-greenNav">Wedding Gift</span>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] font-bold text-betawi-goldNav">Tanda Kasih</p>
+            <h2 class="font-serif text-2xl font-bold text-betawi-brownText mt-0.5">Amplop &amp; Hadiah</h2>
+          </div>
+
+          <!-- BCA -->
+          <div class="p-4 rounded-2xl bg-white/95 border border-stone-200 text-left shadow-sm">
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-blue-700 text-sm">BANK BCA</span>
+              <span class="text-[10px] text-stone-500">Digital Transfer</span>
+            </div>
+            <p class="font-mono text-base font-bold text-stone-800" id="rekBca">8692150502</p>
+            <p class="text-xs text-stone-600 mb-2">a.n Rianzani Octavia</p>
+            <button onclick="copyText('8692150502', this)" class="w-full py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-medium flex items-center justify-center gap-1.5 transition">
+              <i class="fa-regular fa-copy"></i>
+              <span>Salin No. Rekening</span>
+            </button>
+          </div>
+
+          <!-- BRI -->
+          <div class="p-4 rounded-2xl bg-white/95 border border-stone-200 text-left shadow-sm">
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-blue-800 text-sm">BANK BRI</span>
+              <span class="text-[10px] text-stone-500">Digital Transfer</span>
+            </div>
+            <p class="font-mono text-base font-bold text-stone-800" id="rekBri">053401027951500</p>
+            <p class="text-xs text-stone-600 mb-2">a.n Tazky Bagus Ananda</p>
+            <button onclick="copyText('053401027951500', this)" class="w-full py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-medium flex items-center justify-center gap-1.5 transition">
+              <i class="fa-regular fa-copy"></i>
+              <span>Salin No. Rekening</span>
+            </button>
+          </div>
+
+          <!-- ALAMAT KADO -->
+          <div class="p-4 rounded-2xl bg-white/95 border border-stone-200 text-left shadow-sm">
+            <span class="text-xs font-bold text-stone-800 block mb-1">Kirim Kado Fisik:</span>
+            <p class="text-xs text-stone-600 leading-relaxed mb-2">
+              Jalan Lontar/Gang Belimbing RT.04 RW.03 No.12, Lenteng Agung, Jagakarsa, Jakarta Selatan 12610
+            </p>
+            <button onclick="copyText('Jalan Lontar/Gang Belimbing RT.04 RW.03 No.12, Kelurahan Lenteng Agung, Kecamatan Jagakarsa, Jakarta Selatan 12610', this)" class="w-full py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-medium flex items-center justify-center gap-1.5 transition">
+              <i class="fa-regular fa-copy"></i>
+              <span>Salin Alamat Lengkap</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 7. HALAMAN: UCAPAN & DOA (BUKU TAMU) ================= -->
+      <section id="page-ucapan" class="page-section px-6 py-6 text-center">
+        <div class="max-w-sm mx-auto space-y-4">
+          
+          <!-- TOMBOL KEMBALI (BACK TO ACARA) -->
+          <div class="flex items-center justify-between pb-1 border-b border-betawi-goldNav/30">
+            <button onclick="goToPage('acara')" class="px-3.5 py-1.5 rounded-full bg-white/90 border border-betawi-goldNav text-betawi-brownText text-xs font-semibold flex items-center gap-1.5 shadow-sm hover:bg-betawi-goldNav hover:text-white transition">
+              <i class="fa-solid fa-arrow-left text-xs"></i>
+              <span>Kembali ke Acara</span>
+            </button>
+            <span class="text-[10px] uppercase tracking-widest font-bold text-betawi-greenNav">Guest Book</span>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] font-bold text-betawi-goldNav">Buku Tamu</p>
+            <h2 class="font-serif text-2xl font-bold text-betawi-brownText mt-0.5">Ucapan &amp; Doa</h2>
+          </div>
+
+          <!-- FORM -->
+          <form onsubmit="submitWish(event)" class="p-4 rounded-3xl bg-white/95 border border-stone-200 text-left space-y-3 shadow-sm">
+            <div>
+              <label class="block text-[11px] font-bold text-stone-700 mb-1">Nama</label>
+              <input type="text" id="wishName" required placeholder="Nama Anda" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-300 text-xs focus:outline-none focus:ring-1 focus:ring-betawi-greenNav" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-stone-700 mb-1">Kehadiran</label>
+              <select id="wishAttendance" class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-300 text-xs focus:outline-none focus:ring-1 focus:ring-betawi-greenNav">
+                <option value="Hadir">Insya Allah Hadir</option>
+                <option value="Ragu">Masih Ragu</option>
+                <option value="Tidak Hadir">Berhalangan Hadir</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold text-stone-700 mb-1">Pesan Doa</label>
+              <textarea id="wishMessage" rows="2" required placeholder="Tuliskan ucapan doa..." class="w-full px-3 py-2 rounded-xl bg-stone-50 border border-stone-300 text-xs focus:outline-none focus:ring-1 focus:ring-betawi-greenNav"></textarea>
+            </div>
+            <button type="submit" class="w-full py-2.5 rounded-xl bg-betawi-greenNav text-white font-bold text-xs uppercase tracking-wider shadow">
+              Kirim Doa Restu
+            </button>
+          </form>
+
+          <!-- LIST UCAPAN -->
+          <div id="wishesContainer" class="space-y-2 text-left max-h-56 overflow-y-auto pr-1">
+            <div class="p-3 rounded-xl bg-white/90 border border-stone-200 text-xs">
+              <strong class="text-stone-900 block font-semibold">Keluarga Ridwan</strong>
+              <p class="text-stone-600 mt-0.5">"Selamat menempuh hidup baru mpok Zani & bang Tazky! Samawa selalu."</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/90 border border-stone-200 text-xs">
+              <strong class="text-stone-900 block font-semibold">Sahabat Tazky</strong>
+              <p class="text-stone-600 mt-0.5">"Lancar sampai hari H brader! Berkah pernikahannya."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== BOTTOM TAB NAVBAR (PERSIS SEPERTI FOTO) ==================== -->
+    <nav class="shrink-0 bg-betawi-greenNav px-2 py-2 flex items-center justify-around z-40 border-t border-betawi-goldNav/40 shadow-2xl">
+      
+      <!-- TAB 1: Opening -->
+      <button onclick="goToPage('opening')" id="btn-opening" class="nav-tab active flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl transition-all">
+        <i class="fa-solid fa-house text-base"></i>
+        <span class="text-[10px] font-medium mt-1">Opening</span>
+      </button>
+
+      <!-- TAB 2: Salam -->
+      <button onclick="goToPage('salam')" id="btn-salam" class="nav-tab flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl transition-all text-emerald-200/80 hover:text-white">
+        <i class="fa-solid fa-align-left text-base"></i>
+        <span class="text-[10px] font-medium mt-1">Salam</span>
+      </button>
+
+      <!-- TAB 3: Quotes -->
+      <button onclick="goToPage('quotes')" id="btn-quotes" class="nav-tab flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl transition-all text-emerald-200/80 hover:text-white">
+        <i class="fa-solid fa-star-and-crescent text-base"></i>
+        <span class="text-[10px] font-medium mt-1">Quotes</span>
+      </button>
+
+      <!-- TAB 4: Mempelai -->
+      <button onclick="goToPage('mempelai')" id="btn-mempelai" class="nav-tab flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl transition-all text-emerald-200/80 hover:text-white">
+        <i class="fa-solid fa-heart text-base"></i>
+        <span class="text-[10px] font-medium mt-1">Mempelai</span>
+      </button>
+
+      <!-- TAB 5: Acara -->
+      <button onclick="goToPage('acara')" id="btn-acara" class="nav-tab flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl transition-all text-emerald-200/80 hover:text-white">
+        <i class="fa-solid fa-calendar-days text-base"></i>
+        <span class="text-[10px] font-medium mt-1">Acara</span>
+      </button>
+
+    </nav>
+
+    <!-- Ornamen Gigi Balang Bawah -->
+    <div class="gigi-balang-top shrink-0 z-30"></div>
+
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // 1. Ambil Nama Tamu dari URL Parameter (?to=Nama+Tamu)
+    const urlParams = new URLSearchParams(window.location.search);
+    const guest = urlParams.get('to') || urlParams.get('guest');
+    if (guest && guest.trim().length > 0) {
+      document.getElementById('guestNameDisplay').innerText = guest.trim();
+      document.getElementById('wishName').value = guest.trim();
+    }
+
+    // 2. Navigasi Halaman dengan Transisi Lembut (Page Switching)
+    const navButtons = {
+      'opening': document.getElementById('btn-opening'),
+      'salam': document.getElementById('btn-salam'),
+      'quotes': document.getElementById('btn-quotes'),
+      'mempelai': document.getElementById('btn-mempelai'),
+      'acara': document.getElementById('btn-acara'),
+    };
+
+    function goToPage(pageId) {
+      console.log("Navigating to:", pageId);
+
+      // Sembunyikan semua halaman
+      const sections = document.querySelectorAll('.page-section');
+      sections.forEach(sec => {
+        sec.style.display = 'none';
+        sec.classList.remove('active');
+      });
+
+      // Tampilkan halaman tujuan
+      const targetSec = document.getElementById(`page-${pageId}`);
+      if (targetSec) {
+        targetSec.style.display = 'block';
+        targetSec.classList.add('active');
+      }
+
+      // Scroll ke paling atas
+      const vp = document.getElementById('pageViewport');
+      if (vp) vp.scrollTop = 0;
+
+      // Update Style Tab Navbar
+      const tabIds = ['opening', 'salam', 'quotes', 'mempelai', 'acara'];
+      tabIds.forEach(id => {
+        const btn = document.getElementById(`btn-${id}`);
+        if (btn) {
+          if (id === pageId || (pageId === 'kado' && id === 'acara') || (pageId === 'ucapan' && id === 'acara')) {
+            btn.style.backgroundColor = '#B48A44';
+            btn.style.color = '#FFFFFF';
+            btn.classList.add('shadow-md');
+          } else {
+            btn.style.backgroundColor = 'transparent';
+            btn.style.color = '#A7F3D0';
+            btn.classList.remove('shadow-md');
+          }
+        }
+      });
+
+      // Putar lagu jika belum jalan
+      if (pageId !== 'opening' && !isPlaying) {
+        toggleMusic();
+      }
+    }
+
+    // Inisialisasi status tombol aktif pertama
+    goToPage('opening');
+
+    // 3. Audio Player Logic
+    let isPlaying = false;
+    const audio = document.getElementById('weddingAudio');
+    const musicIcon = document.getElementById('musicIcon');
+
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        musicIcon.className = "fa-solid fa-volume-xmark text-xs";
+      } else {
+        audio.play().then(() => {
+          isPlaying = true;
+          musicIcon.className = "fa-solid fa-music text-xs animate-spin-slow";
+        }).catch(e => console.log(e));
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // 4. Salin Teks
+    function copyText(val, btn) {
+      navigator.clipboard.writeText(val).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<i class="fa-solid fa-check text-emerald-600"></i> <span class="text-emerald-700">Tersalin!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 1500);
+      });
+    }
+
+    // 5. Submit Ucapan Doa
+    function submitWish(e) {
+      e.preventDefault();
+      const name = document.getElementById('wishName').value.trim();
+      const msg = document.getElementById('wishMessage').value.trim();
+      if (!name || !msg) return;
+
+      const item = document.createElement('div');
+      item.className = "p-3 rounded-xl bg-white border border-betawi-goldNav/40 text-xs shadow-sm";
+      item.innerHTML = `<strong class="text-stone-900 block font-semibold">${name}</strong><p class="text-stone-600 mt-0.5">${msg}</p>`;
+      
+      const container = document.getElementById('wishesContainer');
+      container.insertBefore(item, container.firstChild);
+
+      document.getElementById('wishMessage').value = '';
+      alert('Terima kasih banyak atas doa restunya!');
+    }
+
+    // 6. Countdown Timer (Sabtu, 9 Januari 2027)
+    const targetDate = new Date("2027-01-09T08:00:00+07:00").getTime();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff > 0) {
+        document.getElementById('days').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+        document.getElementById('hours').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 7. Generator Kelopak Daun & Bunga Melayang Lembut (Falling Leaves Generator)
+    function createFallingLeaves() {
+      const container = document.getElementById('leavesContainer');
+      if (!container) return;
+      
+      const leafSVGs = [
+        // Kelopak Bunga Emas
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="#D4AF37" opacity="0.6"><path d="M12 2C13 7 18 12 22 12C18 13 13 18 12 22C11 18 6 13 2 12C6 12 11 7 12 2Z"/></svg>',
+        // Daun Hijau Sage
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="#2D5A3E" opacity="0.5"><path d="M17 8C8 10 5 19 5 19C5 19 14 16 16 7Z"/></svg>',
+        // Kelopak Rose Merah Betawi
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="#BE123C" opacity="0.45"><circle cx="12" cy="12" r="8"/></svg>'
+      ];
+
+      for (let i = 0; i < 15; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.innerHTML = leafSVGs[Math.floor(Math.random() * leafSVGs.length)];
+        leaf.style.left = `${Math.random() * 100}%`;
+        leaf.style.animationDuration = `${6 + Math.random() * 8}s`;
+        leaf.style.animationDelay = `${Math.random() * 7}s`;
+        container.appendChild(leaf);
+      }
+    }
+    createFallingLeaves();
+  </script>
+</body>
+</html>
