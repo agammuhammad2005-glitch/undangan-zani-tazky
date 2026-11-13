@@ -171,7 +171,7 @@
       height: 100%;
       min-height: 100%;
       padding-top: 18px;
-      padding-bottom: 0px;
+      padding-bottom: max(32px, env(safe-area-inset-bottom, 24px));
       padding-left: 16px;
       padding-right: 16px;
       overflow: hidden;
@@ -388,7 +388,7 @@
         </div>
 
         <!-- SEPASANG ONDEL-ONDEL DI POJOK BAWAH (MENEMPEL DI BAWAH PAS DI ATAS NAVBAR) -->
-        <div class="w-full flex justify-between items-end relative z-10 px-4 pointer-events-none shrink-0 mb-1">
+        <div class="w-full flex justify-between items-end relative z-10 px-4 pointer-events-none shrink-0 mb-3 sm:mb-4">
           <!-- Ondel-Ondel Pria (Kiri Bawah, Muka Merah, Baju Hijau) -->
           <div class="w-18 sm:w-20 animate-ondel-left drop-shadow-xl" style="width: 72px;">
             <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -871,6 +871,12 @@
         if (bottomGb) bottomGb.style.display = 'block';
       }
 
+      // Update index halaman saat ini
+      const foundIdx = pageOrder.indexOf(pageId);
+      if (foundIdx !== -1) {
+        currentPageIndex = foundIdx;
+      }
+
       // Sembunyikan semua halaman
       const sections = document.querySelectorAll('.page-section');
       sections.forEach(sec => {
@@ -914,6 +920,50 @@
 
     // Inisialisasi status tombol aktif pertama
     goToPage('opening');
+
+    // Geser Halaman ke Kanan / Kiri dengan Touch Swipe Gesture
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+
+    const pageOrder = ['opening', 'salam', 'quotes', 'mempelai', 'acara'];
+    let currentPageIndex = 0;
+
+    const containerEl = document.getElementById('pageViewport');
+    if (containerEl) {
+      containerEl.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      containerEl.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipeGesture();
+      }, { passive: true });
+    }
+
+    function handleSwipeGesture() {
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      const minSwipeDistance = 50;
+
+      // Pastikan gerakan horizontal lebih dominan daripada vertikal (bukan saat scroll vertikal)
+      if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+        if (deltaX < 0) {
+          // Swipe ke Kiri -> Pindah ke Tab Berikutnya
+          if (currentPageIndex < pageOrder.length - 1) {
+            goToPage(pageOrder[currentPageIndex + 1]);
+          }
+        } else {
+          // Swipe ke Kanan -> Pindah ke Tab Sebelumnya
+          if (currentPageIndex > 0) {
+            goToPage(pageOrder[currentPageIndex - 1]);
+          }
+        }
+      }
+    }
 
     // 3. Audio Player Logic
     let isPlaying = false;
