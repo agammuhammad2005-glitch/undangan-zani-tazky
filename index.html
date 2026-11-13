@@ -352,7 +352,7 @@
           
           <!-- Tombol Mulai Buka Halaman (Presisi Tengah) -->
           <div class="w-full flex justify-center mt-2.5">
-            <button type="button" onclick="goToPage('salam')" class="px-7 py-2 sm:px-8 sm:py-2.5 rounded-full bg-gradient-to-r from-betawi-goldNav to-amber-700 hover:from-amber-700 hover:to-betawi-goldNav text-white font-bold text-xs tracking-wider uppercase shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer relative z-30 border border-betawi-goldLight/40">
+            <button type="button" onclick="openInvitation()" class="px-7 py-2 sm:px-8 sm:py-2.5 rounded-full bg-gradient-to-r from-betawi-goldNav to-amber-700 hover:from-amber-700 hover:to-betawi-goldNav text-white font-bold text-xs tracking-wider uppercase shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer relative z-30 border border-betawi-goldLight/40">
               <i class="fa-solid fa-envelope-open text-xs"></i>
               <span>Buka Undangan</span>
             </button>
@@ -809,8 +809,27 @@
       'acara': document.getElementById('btn-acara'),
     };
 
+    function requestFullScreenMode() {
+      try {
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen().catch(() => {});
+        } else if (elem.webkitRequestFullscreen) { /* Safari / Chrome Mobile */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+      } catch (err) {
+        console.log("Fullscreen request error:", err);
+      }
+    }
+
+    function openInvitation() {
+      requestFullScreenMode();
+      goToPage('salam');
+    }
+
     function goToPage(pageId) {
-      console.log("Navigating to:", pageId);
 
       // Sembunyikan semua halaman
       const sections = document.querySelectorAll('.page-section');
