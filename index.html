@@ -127,6 +127,11 @@
         border: none !important;
         outline: none !important;
       }
+      /* Tarik background sky ke atas tembus 50px agar bar atas tertutup penuh */
+      .bg-betawi-texture {
+        background-position: center -50px !important;
+        background-size: 100% calc(100% + 50px) !important;
+      }
       .gigi-balang-top {
         display: none !important;
       }
@@ -142,10 +147,18 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    /* Bottom Navbar: Disembunyikan saat di Cover Depan (not-open), Muncul setelah Buka Undangan */
+    /* Bottom Navbar: Selalu fixed menempel di bawah layar, aman & tidak terpotong */
     #bottomNavBar {
       display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
       padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+      z-index: 50;
     }
 
     body.invitation-opened #bottomNavBar {
@@ -153,7 +166,7 @@
     }
 
     body.invitation-opened .page-container {
-      height: calc(100% - 75px);
+      padding-bottom: 75px !important;
     }
 
     /* Transisi Halus Pergantian Halaman */
