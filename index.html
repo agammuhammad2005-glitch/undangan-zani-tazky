@@ -126,6 +126,10 @@
         box-shadow: none !important;
         border-radius: 0 !important;
       }
+      /* Hilangkan ornamen gigi balang di atas agar background watercolor full ke paling atas layar HP */
+      .gigi-balang-top {
+        display: none !important;
+      }
     }
 
     /* Page Viewport Area */
@@ -152,8 +156,8 @@
       justify-content: space-between;
       height: 100%;
       min-height: 100%;
-      padding-top: 12px;
-      padding-bottom: 12px;
+      padding-top: 18px;
+      padding-bottom: 0px;
       padding-left: 16px;
       padding-right: 16px;
       overflow: hidden;
@@ -373,9 +377,9 @@
         </div>
 
         <!-- SEPASANG ONDEL-ONDEL DI POJOK BAWAH (MENEMPEL DI BAWAH PAS DI ATAS NAVBAR) -->
-        <div class="w-full flex justify-between items-end relative z-10 px-2 pointer-events-none shrink-0 mt-auto">
+        <div class="w-full flex justify-between items-end relative z-10 px-4 pointer-events-none shrink-0 mb-1">
           <!-- Ondel-Ondel Pria (Kiri Bawah, Muka Merah, Baju Hijau) -->
-          <div class="w-14 sm:w-18 animate-ondel-left drop-shadow-lg">
+          <div class="w-18 sm:w-20 animate-ondel-left drop-shadow-xl" style="width: 72px;">
             <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- Kembang Kelapa Hiasan Kepala -->
               <path d="M50 20 Q15 5 5 0 Q20 15 50 25" stroke="#F59E0B" stroke-width="2.5"/>
@@ -404,7 +408,7 @@
           </div>
 
           <!-- Ondel-Ondel Wanita (Kanan Bawah, Muka Putih Ayu, Baju Merah) -->
-          <div class="w-16 sm:w-20 animate-ondel-right drop-shadow-lg">
+          <div class="w-18 sm:w-20 animate-ondel-right drop-shadow-xl" style="width: 72px;">
             <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
               <!-- Kembang Kelapa Hiasan Kepala -->
               <path d="M50 20 Q15 5 5 0 Q20 15 50 25" stroke="#EC4899" stroke-width="2.5"/>
